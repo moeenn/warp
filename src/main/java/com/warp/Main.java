@@ -8,6 +8,7 @@ public class Main {
         IPRoute route = new IPRoute(localIp);
 
         List<IPv4> aliveIPs = route.findAliveIPs();
+        System.out.printf("\n\n -- Scan results -- \n");
         for (var ip : aliveIPs) {
             System.out.println(ip);
         }
