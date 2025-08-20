@@ -59,6 +59,15 @@ func (controller FilesController) DownloadFile(w http.ResponseWriter, r *http.Re
 		return
 	}
 
+	defer func() {
+		if err := file.Close(); err != nil {
+			controller.logger.Error("failed to close file",
+				"filename", filename,
+				"error", err.Error(),
+			)
+		}
+	}()
+
 	w.Header().Set("Content-Type", "application/octet-stream")
 	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=\"%s\"", filename))
 

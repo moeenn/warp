@@ -5,16 +5,14 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
-	"time"
 	"warp/internal/files"
 	"warp/internal/ip"
 	"warp/internal/middleware"
 )
 
 const (
-	Port          int           = 8080
-	Address       string        = "localhost:8080"
-	ServerTimeout time.Duration = time.Second * 20
+	PORT    int    = 8080
+	ADDRESS string = "localhost:8080"
 )
 
 func run() error {
@@ -32,22 +30,18 @@ func run() error {
 	filesController := files.NewFilesController(logger, filesService)
 
 	ipService := ip.NewIpService(logger)
-	ipController := ip.NewIpController(logger, Port, ipService)
+	ipController := ip.NewIpController(logger, PORT, ipService)
 
 	ipController.RegisterRoutes(mux)
 	filesController.RegisterRoutes(mux)
 
 	//nolint: exhaustruct
 	server := &http.Server{
-		Addr:              Address,
-		Handler:           middleware.Cors(mux),
-		ReadTimeout:       ServerTimeout,
-		WriteTimeout:      ServerTimeout,
-		IdleTimeout:       ServerTimeout,
-		ReadHeaderTimeout: ServerTimeout,
+		Addr:    ADDRESS,
+		Handler: middleware.Cors(mux),
 	}
 
-	logger.Info("starting server", "address", Address)
+	logger.Info("starting server", "address", ADDRESS)
 	return server.ListenAndServe()
 }
 
