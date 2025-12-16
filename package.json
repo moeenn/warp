@@ -1,0 +1,11 @@
+{
+    "name": "warp",
+    "scripts": {
+        "css:dev": "npx @tailwindcss/cli -i ./views/styles/global.css -o ./public/css/style.css --watch",
+        "css:build": "npx @tailwindcss/cli -i ./views/styles/global.css -o ./public/css/style.css"
+    },
+    "dependencies": {
+        "@tailwindcss/cli": "^4.1.18",
+        "tailwindcss": "^4.1.18"
+    }
+}
