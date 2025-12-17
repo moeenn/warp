@@ -1,4 +1,4 @@
-{{ define "base_layout.start" }}
+{{ define "base_layout" }}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +12,7 @@
 
 <body>
     <main>
-        {{ end }}
-
-
-        {{ define "base_layout.end" }}
+        {{ template "base_layout.content" . }}
     </main>
 </body>
 
